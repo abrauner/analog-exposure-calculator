@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Custom styles for option backgrounds - Tailwind doesn't handle these well */
+select option.full-stop {
+    background-color: #d4edda;
+    font-weight: 600;
+}

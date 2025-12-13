@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+                   style-src 'self' 'unsafe-inline';
+                   font-src 'self' data:;
+                   img-src 'self' data:;
+                   connect-src 'self';
+                   frame-ancestors 'none';
+                   base-uri 'self';
+                   form-action 'self';">
+
+    <title>Analog Film Exposure Calculator - Free Tool for Manual Cameras</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Free analog film exposure calculator for manual cameras. Calculate aperture, shutter speed, ISO, and EV. Learn exposure triangle with interactive formulas.">
+    <meta name="keywords" content="film exposure calculator, analog photography calculator, exposure triangle, manual camera settings, analog cameras, f-stop calculator, shutter speed calculator, EV calculator, film photography">
+    <meta name="author" content="Analog Film Exposure Calculator">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="theme-color" content="#1f2937">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="<base-url>">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<base-url>">
+    <meta property="og:title" content="Analog Film Exposure Calculator - Free Tool for Manual Cameras">
+    <meta property="og:description" content="Calculate perfect exposure for film photography. Interactive tool for aperture, shutter speed, ISO, and EV. Designed for all manual cameras.">
+    <meta property="og:image" content="<base-url>/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Analog Film Exposure Calculator interface showing aperture, shutter speed, ISO, and EV controls">
+    <meta property="og:site_name" content="Analog Film Exposure Calculator">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="<base-url>">
+    <meta name="twitter:title" content="Analog Film Exposure Calculator - Free Tool for Manual Cameras">
+    <meta name="twitter:description" content="Calculate perfect exposure for film photography. Interactive tool for aperture, shutter speed, ISO, and EV. Designed for all manual cameras.">
+    <meta name="twitter:image" content="<base-url>/images/og-image.jpg">
+    <meta name="twitter:image:alt" content="Analog Film Exposure Calculator interface showing aperture, shutter speed, ISO, and EV controls">
+
+    <!-- Favicon (placeholder - files to be created) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0"
+            integrity="sha384-i0IGVuZBkKZqwXTD4CH4kcksIbFx7WKFMdxN8zUhLFHpLdELF0ym0jxa6UvLhW8/"
+            crossorigin="anonymous"></script>
+    <script id="MathJax-script" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.0.0/tex-mml-chtml.min.js"
+            integrity="sha384-C47sRPScRU8gCduybGUtOI2tuihkr9LFvlaIsWq+uu6bC6oxDSFgf97DSI+xWklw"
+            crossorigin="anonymous"></script>
+
+    <!-- Structured Data loaded from external file for performance -->
+    <script src="schemas.js"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 min-h-screen flex justify-center items-center p-3 md:p-5">
+
+    <main class="w-full max-w-3xl">
+        <!-- Calculator Section -->
+        <section aria-labelledby="calculator-heading" class="bg-white rounded-2xl shadow-2xl p-5 md:p-10">
+            <h1 id="calculator-heading" class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-2">Analog Film Exposure Calculator</h1>
+            <p class="text-gray-600 text-center mb-6 md:mb-8 text-sm">Free calculator for manual cameras • Calculate aperture, shutter speed, ISO, and EV</p>
+
+            <form id="calculatorForm" role="form" aria-label="Exposure calculation form">
+                <!-- EV Input Group -->
+                <div class="mb-6">
+                    <label class="flex items-center gap-2 mb-2 text-gray-700 font-medium text-sm">
+                        <span>Exposure Value</span>
+                        <span class="bg-gray-200 px-2 py-0.5 rounded text-xs font-mono">EV</span>
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex-col hidden md:flex">
+                            <div class="text-xs font-semibold text-gray-800 mb-2">EV Number</div>
+                            <div id="evDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Light Situation</span></div>
+                            <div class="flex gap-2">
+                                <select id="evSituation" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
+                                    <option value="">Select situation...</option>
+                                    <option value="15">EV 15 - Bright sunny, distinct shadows</option>
+                                    <option value="14">EV 14 - Sunny, clear sky</option>
+                                    <option value="13">EV 13 - Slightly overcast</option>
+                                    <option value="12">EV 12 - Overcast sky</option>
+                                    <option value="11">EV 11 - Heavy overcast</option>
+                                    <option value="10">EV 10 - Open shade, bright cloudy</option>
+                                    <option value="9">EV 9 - Deep shade</option>
+                                    <option value="8">EV 8 - Sunset, well-lit indoor</option>
+                                    <option value="7">EV 7 - Indoor natural light (near window)</option>
+                                    <option value="6">EV 6 - Indoor artificial light (bright)</option>
+                                    <option value="5">EV 5 - Indoor home lighting</option>
+                                    <option value="4">EV 4 - Indoor dim lighting</option>
+                                    <option value="3">EV 3 - Candlelight, campfire</option>
+                                    <option value="2">EV 2 - Very dim indoor</option>
+                                    <option value="1">EV 1 - Night street lighting</option>
+                                    <option value="0">EV 0 - Distant city lights</option>
+                                    <option value="-1">EV -1 - Moonlight landscape</option>
+                                    <option value="-2">EV -2 - Starlight only</option>
+                                </select>
+                                <button onclick="clearEVFields()" class="px-4 py-3 bg-gray-400 text-gray-800 rounded-lg font-semibold hover:bg-gray-500 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 bg-gray-100 px-3 py-2 rounded-lg border-l-4 border-gray-700 hidden md:block">
+                        <div class="text-xs text-gray-600">
+                            \[EV = \log_2\left(\frac{100 \times A^2}{ISO \times T}\right)\]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aperture Input Group -->
+                <div class="mb-6">
+                    <label class="flex items-center gap-2 mb-2 text-gray-700 font-medium text-sm">
+                        <span>Aperture (f-stop)</span>
+                        <span class="bg-gray-200 px-2 py-0.5 rounded text-xs font-mono">A</span>
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <div class="text-xs font-semibold text-gray-800 mb-2">Info</div>
+                            <div class="px-3 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg text-gray-600 text-xs leading-relaxed flex items-center justify-center gap-4">
+                                <span>● Full stops</span>
+                                <span>◐ Half stops</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Selected Aperture</span></div>
+                            <div class="flex gap-2">
+                                <select id="aperture" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
+                                    <option value="">Select aperture...</option>
+                                    <option value="0.5" class="full-stop">● f/0.5</option>
+                                    <option value="0.6" class="half-stop">◐ f/0.6</option>
+                                    <option value="0.7" class="full-stop">● f/0.7</option>
+                                    <option value="0.85" class="half-stop">◐ f/0.85</option>
+                                    <option value="1.0" class="full-stop">● f/1.0</option>
+                                    <option value="1.2" class="half-stop">◐ f/1.2</option>
+                                    <option value="1.4" class="full-stop">● f/1.4</option>
+                                    <option value="1.7" class="half-stop">◐ f/1.7</option>
+                                    <option value="2.0" class="full-stop">● f/2.0</option>
+                                    <option value="2.4" class="half-stop">◐ f/2.4</option>
+                                    <option value="2.8" class="full-stop">● f/2.8</option>
+                                    <option value="3.3" class="half-stop">◐ f/3.3</option>
+                                    <option value="4.0" class="full-stop">● f/4.0</option>
+                                    <option value="4.8" class="half-stop">◐ f/4.8</option>
+                                    <option value="5.6" class="full-stop">● f/5.6</option>
+                                    <option value="6.7" class="half-stop">◐ f/6.7</option>
+                                    <option value="8.0" class="full-stop">● f/8.0</option>
+                                    <option value="9.5" class="half-stop">◐ f/9.5</option>
+                                    <option value="11" class="full-stop">● f/11</option>
+                                    <option value="13" class="half-stop">◐ f/13</option>
+                                    <option value="16" class="full-stop">● f/16</option>
+                                    <option value="19" class="half-stop">◐ f/19</option>
+                                    <option value="22" class="full-stop">● f/22</option>
+                                    <option value="27" class="half-stop">◐ f/27</option>
+                                    <option value="32" class="full-stop">● f/32</option>
+                                </select>
+                                <button onclick="clearField('aperture')" class="px-4 py-3 bg-gray-400 text-gray-800 rounded-lg font-semibold hover:bg-gray-500 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 bg-gray-100 px-3 py-2 rounded-lg border-l-4 border-gray-700 hidden md:block">
+                        <div class="text-xs text-gray-600">
+                            \[A = \sqrt{\frac{ISO \times T \times 2^{EV}}{100}}\]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ISO Input Group -->
+                <div class="mb-6">
+                    <label class="flex items-center gap-2 mb-2 text-gray-700 font-medium text-sm">
+                        <span>ISO Value</span>
+                        <span class="bg-gray-200 px-2 py-0.5 rounded text-xs font-mono">I</span>
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex-col hidden md:flex">
+                            <div class="text-xs font-semibold text-gray-800 mb-2">Calculated Value</div>
+                            <div id="isoDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Common Film Speed</span></div>
+                            <div class="flex gap-2">
+                                <select id="isoFilm" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
+                                    <option value="">Select film speed...</option>
+                                    <option value="25">ISO 25 (Kodak Ektar 25, Fuji Velvia 50)</option>
+                                    <option value="50">ISO 50 (Ilford Pan F Plus 50)</option>
+                                    <option value="100">ISO 100 (Kodak Ektar 100, Fuji Provia 100F)</option>
+                                    <option value="125">ISO 125 (Ilford FP4 Plus)</option>
+                                    <option value="160">ISO 160 (Kodak Portra 160, Fuji Pro 160NS)</option>
+                                    <option value="200">ISO 200 (Fuji 200, Kodak Gold 200)</option>
+                                    <option value="400">ISO 400 (Kodak Portra 400, Ilford HP5, Tri-X)</option>
+                                    <option value="800">ISO 800 (Kodak Portra 800)</option>
+                                    <option value="1600">ISO 1600 (Ilford Delta 3200 pushed)</option>
+                                    <option value="3200">ISO 3200 (Ilford Delta 3200)</option>
+                                </select>
+                                <button onclick="clearISOFields()" class="px-4 py-3 bg-gray-400 text-gray-800 rounded-lg font-semibold hover:bg-gray-500 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 bg-gray-100 px-3 py-2 rounded-lg border-l-4 border-gray-700 hidden md:block">
+                        <div class="text-xs text-gray-600">
+                            \[ISO = \frac{100 \times A^2}{T \times 2^{EV}}\]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Input Group -->
+                <div class="mb-6">
+                    <label class="flex items-center gap-2 mb-2 text-gray-700 font-medium text-sm">
+                        <span>Exposure Time (seconds)</span>
+                        <span class="bg-gray-200 px-2 py-0.5 rounded text-xs font-mono">T</span>
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex-col hidden md:flex">
+                            <div class="text-xs font-semibold text-gray-800 mb-2">Calculated Value</div>
+                            <div id="timeDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Closest Shutter Speed</span></div>
+                            <div class="flex gap-2">
+                                <select id="timeShutter" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
+                                    <option value="">Select shutter speed...</option>
+                                    <option value="1">1s</option>
+                                    <option value="0.5">1/2s</option>
+                                    <option value="0.25">1/4s</option>
+                                    <option value="0.125">1/8s</option>
+                                    <option value="0.0666667">1/15s</option>
+                                    <option value="0.0333333">1/30s</option>
+                                    <option value="0.02">1/50s (flash sync)</option>
+                                    <option value="0.0166667">1/60s</option>
+                                    <option value="0.008">1/125s</option>
+                                    <option value="0.004">1/250s</option>
+                                    <option value="0.002">1/500s</option>
+                                    <option value="0.001">1/1000s</option>
+                                </select>
+                                <button onclick="clearTimeFields()" class="px-4 py-3 bg-gray-400 text-gray-800 rounded-lg font-semibold hover:bg-gray-500 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 bg-gray-100 px-3 py-2 rounded-lg border-l-4 border-gray-700 hidden md:block">
+                        <div class="text-xs text-gray-600">
+                            \[T = \frac{100 \times A^2}{ISO \times 2^{EV}}\]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculate Button -->
+                <button type="button" onclick="calculate()" class="w-full py-4 bg-gradient-to-r from-gray-800 to-black text-white rounded-lg text-lg font-semibold hover:shadow-lg transition-all hover:-translate-y-1 active:translate-y-0 mt-3">Calculate</button>
+
+                <!-- Error Message -->
+                <div id="error" class="hidden mt-5 bg-red-100 text-red-700 px-4 py-3 rounded-lg text-center"></div>
+
+                <!-- Info Message -->
+                <div class="mt-5 bg-gray-200 text-gray-800 px-4 py-3 rounded-lg text-center text-sm" role="status">
+                    Leave one field empty - it will be calculated when you press the button
+                </div>
+            </form>
+        </section>
+
+        <!-- Documentation Section (Collapsible) -->
+        <section aria-labelledby="documentation-heading" class="bg-white rounded-2xl shadow-2xl mt-8 overflow-hidden">
+            <button
+                onclick="toggleDocumentation()"
+                class="w-full p-6 md:p-10 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                aria-expanded="false"
+                aria-controls="documentationContent"
+                id="docToggle"
+            >
+                <h2 id="documentation-heading" class="text-xl md:text-2xl font-bold text-gray-800">📖 About This Calculator</h2>
+                <span id="docIcon" class="text-2xl text-gray-600 transition-transform" aria-hidden="true">▼</span>
+            </button>
+
+            <article id="documentationContent" class="hidden px-6 pb-6 md:px-10 md:pb-10">
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">What Is This Calculator For?</h3>
+                <p class="text-gray-600 leading-relaxed">This exposure calculator helps analog film photographers determine the correct exposure settings for their camera. It's designed to work with any manual camera. The calculator solves the fundamental relationship between aperture, shutter speed, ISO, and exposure value (EV).</p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">How Does It Work?</h3>
+                <p class="text-gray-600 leading-relaxed mb-3">The calculator uses the exposure triangle relationship where three values determine the fourth:</p>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed space-y-2 ml-4">
+                    <li><strong>Exposure Value (EV)</strong> - Represents the amount of light in a scene</li>
+                    <li><strong>Aperture (f-stop)</strong> - Controls how much light enters through the lens</li>
+                    <li><strong>ISO</strong> - The film's sensitivity to light</li>
+                    <li><strong>Exposure Time</strong> - How long the shutter stays open</li>
+                </ul>
+                <p class="text-gray-600 leading-relaxed mt-3">Simply provide any three values, and the calculator will compute the fourth. The dropdowns for light situations and shutter speeds make it practical for real-world shooting scenarios.</p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Practical Use Cases</h3>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed space-y-2 ml-4">
+                    <li><strong>Metering Without a Light Meter:</strong> Know the lighting situation (sunny day) and your film ISO, calculate what aperture/shutter combo to use</li>
+                    <li><strong>Planning Your Shot:</strong> Want to shoot at f/2.8 with ISO 400 film? Find out what shutter speed you'll need for different lighting</li>
+                    <li><strong>Reciprocity:</strong> Calculate equivalent exposures - if you know one combination works, find alternatives with different aperture or shutter speed</li>
+                    <li><strong>Flash Photography:</strong> The 1/50s flash sync speed is clearly marked to help you calculate proper aperture for flash shots</li>
+                    <li><strong>Learning Exposure:</strong> Understand the mathematical relationships between all exposure variables</li>
+                </ul>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Understanding the Formulas</h3>
+
+                <h4 class="text-lg font-semibold text-gray-900 mt-4 mb-2">Master Formula: Calculating EV</h4>
+                <div class="bg-gray-100 px-4 py-3 rounded-lg border-l-4 border-gray-700 mb-3">
+                    <div class="text-sm text-gray-600">
+                        \[EV = \log_2\left(\frac{100 \times A^2}{ISO \times T}\right)\]
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">This is the complete photography exposure formula that relates all four exposure variables: Exposure Value (EV), Aperture (A), ISO film speed, and Time (T). The constant 100 is a calibration factor based on light meter standards.</p>
+
+                <h4 class="text-lg font-semibold text-gray-900 mt-4 mb-2">Calculating Aperture</h4>
+                <div class="bg-gray-100 px-4 py-3 rounded-lg border-l-4 border-gray-700 mb-3">
+                    <div class="text-sm text-gray-600">
+                        \[A = \sqrt{\frac{ISO \times T \times 2^{EV}}{100}}\]
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">Rearranged from the master formula to solve for aperture. Given a lighting situation (EV), your film speed (ISO), and desired shutter speed (T), this tells you which f-stop to use.</p>
+
+                <h4 class="text-lg font-semibold text-gray-900 mt-4 mb-2">Calculating ISO</h4>
+                <div class="bg-gray-100 px-4 py-3 rounded-lg border-l-4 border-gray-700 mb-3">
+                    <div class="text-sm text-gray-600">
+                        \[ISO = \frac{100 \times A^2}{T \times 2^{EV}}\]
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">Rearranged from the master formula to solve for ISO. This is useful for determining what film speed you need for specific lighting conditions, aperture, and shutter speed combinations. For example, if you want to shoot at f/2.8 and 1/1000s in bright sunlight (EV 15), you can calculate the required ISO.</p>
+
+                <h4 class="text-lg font-semibold text-gray-900 mt-4 mb-2">Calculating Exposure Time</h4>
+                <div class="bg-gray-100 px-4 py-3 rounded-lg border-l-4 border-gray-700 mb-3">
+                    <div class="text-sm text-gray-600">
+                        \[T = \frac{100 \times A^2}{ISO \times 2^{EV}}\]
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed">The most common calculation - given your lighting conditions (EV), film speed (ISO), and chosen aperture (A), this tells you what shutter speed to set on your camera.</p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">About Analog Camera Shutter Speeds</h3>
+                <p class="text-gray-600 leading-relaxed">The shutter speed dropdown includes common mechanical speeds available on analog cameras (1s to 1/1000s). The <strong>1/50s flash sync speed</strong> is specially marked because it's a common flash sync speed for many cameras. Using faster speeds may result in partial frame exposure on some cameras (the shutter curtain will appear in your photo).</p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Full Stops vs. Half Stops</h3>
+                <p class="text-gray-600 leading-relaxed mb-3">Aperture values are marked with indicators:</p>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed space-y-2 ml-4">
+                    <li><strong>● Full stops</strong> (f/1.0, f/1.4, f/2.0, f/2.8, etc.) - Each full stop doubles or halves the light</li>
+                    <li><strong>◐ Half stops</strong> (f/1.2, f/1.7, f/2.4, etc.) - Intermediate values for finer exposure control</li>
+                </ul>
+                <p class="text-gray-600 leading-relaxed mt-3">Moving one full stop changes exposure by exactly 2× (one "stop" of light). Half stops provide intermediate adjustments of approximately 1.4×.</p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Tips for Using This Calculator</h3>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed space-y-2 ml-4">
+                    <li>Start with the <strong>Light Situation</strong> dropdown if you're outdoors - it's often easier to identify "sunny day" than to know the exact EV number</li>
+                    <li>The <strong>Sunny 16 Rule</strong> is built in: EV 14 (sunny day) + ISO 400 + f/16 = 1/400s (close to 1/500s)</li>
+                    <li>Use the <strong>Shutter Speed</strong> dropdown when inputting time - it ensures you select speeds that actually exist on your camera</li>
+                    <li>Remember that calculated apertures might not exactly match standard stops - the calculator will suggest the closest available aperture</li>
+                    <li>The displayed values are precise, but in practice you'll use the closest available setting on your camera</li>
+                </ul>
+            </div>
+            </article><!-- End documentationContent -->
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
