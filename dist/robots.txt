@@ -1,0 +1,14 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: <sitemap-url>
+
+# Optional: Crawl-delay for aggressive bots (uncomment if needed)
+# User-agent: *
+# Crawl-delay: 10
+
+# Block specific files (if any)
+# Disallow: /dist/
+# Disallow: /src/
