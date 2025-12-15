@@ -82,6 +82,13 @@
             <h1 id="calculator-heading" class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-2">Analog Film Exposure Calculator</h1>
             <p class="text-gray-600 text-center mb-6 md:mb-8 text-sm">Free calculator for manual cameras • Calculate aperture, shutter speed, ISO, and EV</p>
 
+            <!-- Master Formula (Mobile Only) -->
+            <div class="mb-6 bg-gray-100 px-4 py-3 rounded-lg border-l-4 border-gray-700 md:hidden">
+                <div class="text-xs text-gray-600 text-center">
+                    \[EV = \log_2\left(\frac{100 \times A^2}{ISO \times T}\right)\]
+                </div>
+            </div>
+
             <form id="calculatorForm" role="form" aria-label="Exposure calculation form">
                 <!-- EV Input Group -->
                 <div class="mb-6">
@@ -95,7 +102,7 @@
                             <div id="evDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
                         </div>
                         <div class="flex flex-col">
-                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Light Situation</span></div>
+                            <div class="text-xs font-semibold text-gray-800 mb-2 hidden md:block">Light Situation</div>
                             <div class="flex gap-2">
                                 <select id="evSituation" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
                                     <option value="">Select situation...</option>
@@ -136,7 +143,7 @@
                         <span class="bg-gray-200 px-2 py-0.5 rounded text-xs font-mono">A</span>
                     </label>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex flex-col">
+                        <div class="flex-col hidden md:flex">
                             <div class="text-xs font-semibold text-gray-800 mb-2">Info</div>
                             <div class="px-3 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg text-gray-600 text-xs leading-relaxed flex items-center justify-center gap-4">
                                 <span>● Full stops</span>
@@ -144,7 +151,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Selected Aperture</span></div>
+                            <div class="text-xs font-semibold text-gray-800 mb-2 hidden md:block">Selected Aperture</div>
                             <div class="flex gap-2">
                                 <select id="aperture" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
                                     <option value="">Select aperture...</option>
@@ -197,7 +204,7 @@
                             <div id="isoDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
                         </div>
                         <div class="flex flex-col">
-                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Common Film Speed</span></div>
+                            <div class="text-xs font-semibold text-gray-800 mb-2 hidden md:block">Common Film Speed</div>
                             <div class="flex gap-2">
                                 <select id="isoFilm" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
                                     <option value="">Select film speed...</option>
@@ -235,7 +242,7 @@
                             <div id="timeDisplay" class="px-3 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-600 font-medium text-center min-h-[48px] flex items-center justify-center">—</div>
                         </div>
                         <div class="flex flex-col">
-                            <div class="text-xs font-semibold text-gray-800 mb-2"><span class="md:hidden">Select Value</span><span class="hidden md:inline">Closest Shutter Speed</span></div>
+                            <div class="text-xs font-semibold text-gray-800 mb-2 hidden md:block">Closest Shutter Speed</div>
                             <div class="flex gap-2">
                                 <select id="timeShutter" class="flex-1 min-w-0 px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-gray-700 bg-white cursor-pointer text-sm">
                                     <option value="">Select shutter speed...</option>
@@ -277,7 +284,7 @@
         </section>
 
         <!-- Documentation Section (Collapsible) -->
-        <section aria-labelledby="documentation-heading" class="bg-white rounded-2xl shadow-2xl mt-8 overflow-hidden">
+        <section aria-labelledby="documentation-heading" class="bg-white rounded-2xl shadow-2xl mt-8 overflow-hidden hidden md:block">
             <button
                 onclick="toggleDocumentation()"
                 class="w-full p-6 md:p-10 flex items-center justify-between hover:bg-gray-50 transition-colors"
