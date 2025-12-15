@@ -112,25 +112,31 @@ function clearISOFields() {
 }
 
 // When shutter speed is selected, update the time field
-timeShutterSelect.addEventListener('change', function() {
-    if (this.value !== '') {
-        inputs.time.textContent = this.value;
-    }
-});
+if (timeShutterSelect) {
+    timeShutterSelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            inputs.time.textContent = this.value;
+        }
+    });
+}
 
 // When EV situation is selected, update the EV field
-evSituationSelect.addEventListener('change', function() {
-    if (this.value !== '') {
-        inputs.ev.textContent = this.value;
-    }
-});
+if (evSituationSelect) {
+    evSituationSelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            inputs.ev.textContent = this.value;
+        }
+    });
+}
 
 // When ISO film is selected, update the ISO field
-isoFilmSelect.addEventListener('change', function() {
-    if (this.value !== '') {
-        inputs.iso.textContent = this.value;
-    }
-});
+if (isoFilmSelect) {
+    isoFilmSelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            inputs.iso.textContent = this.value;
+        }
+    });
+}
 
 function calculate() {
     hideError();
@@ -333,4 +339,22 @@ function toggleDocumentation() {
         docIcon.style.transform = 'rotate(0deg)';
         docToggle.setAttribute('aria-expanded', 'false');
     }
+}
+
+// Export functions for testing (Node.js/Jest environment only)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        shutterSpeeds,
+        findClosestShutterSpeed,
+        findClosestLightSituation,
+        findClosestFilmSpeed,
+        clearField,
+        clearTimeFields,
+        clearEVFields,
+        clearISOFields,
+        calculate,
+        showError,
+        hideError,
+        toggleDocumentation
+    };
 }
