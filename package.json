@@ -9,7 +9,7 @@
     "build": "npm run build:css && npm run build:html && cp src/script.js dist/ && cp src/schemas.js dist/ && cp src/robots.txt dist/ && cp src/sitemap.xml dist/ && cp src/manifest.json dist/"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
     "html-minifier-terser": "^7.2.0",
