@@ -134,7 +134,8 @@ describe('Shutter Speed Functions', () => {
         test('should use logarithmic comparison for accurate stop matching', () => {
             // Test that it uses log comparison (which is correct for exposure stops)
             const result = findClosestShutterSpeed(0.006);
-            // 0.006 is closer to 1/125 (0.008) on log scale than 1/250 (0.004)
+            // Log comparison: |log(0.006/0.008)| = 0.415 vs |log(0.006/0.004)| = 0.693
+            // So 0.006 is closer to 1/125s (0.008) than 1/250s (0.004) on log scale
             expect(result.value).toBe(0.008);
         });
     });
@@ -178,7 +179,8 @@ describe('Film Speed Functions', () => {
 
         test('should find closest ISO for value between standard speeds', () => {
             const result = findClosestFilmSpeed(300);
-            // 300 is closer to 200 (diff: 100) than to 400 (diff: 100) - ties go to lower value
+            // 300 is equidistant from 200 and 400 (diff: 100 each)
+            // Implementation chooses the first match (200)
             expect(result).toBe('200');
         });
 
@@ -192,9 +194,9 @@ describe('Film Speed Functions', () => {
             expect(result).toBe('3200'); // Highest available
         });
 
-        test('should correctly round halfway values', () => {
-            const result = findClosestFilmSpeed(283); // Exactly between 200 and 400 on linear scale
-            // Should pick based on absolute difference
+        test('should correctly round values closer to lower ISO', () => {
+            const result = findClosestFilmSpeed(283);
+            // 283 is closer to 200 (diff: 83) than to 400 (diff: 117)
             expect(result).toBe('200');
         });
     });
