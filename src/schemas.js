@@ -7,7 +7,7 @@ const schemas = [
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Analog Film Exposure Calculator",
-    "url": "<base-url>>",
+    "url": "<base-url>",
     "applicationCategory": "UtilitiesApplication",
     "applicationSubCategory": "Photography Calculator",
     "operatingSystem": "Any (Web-based)",
