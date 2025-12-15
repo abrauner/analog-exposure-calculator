@@ -60,9 +60,12 @@
     <link rel="manifest" href="/manifest.json">
 
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0"
-            integrity="sha384-i0IGVuZBkKZqwXTD4CH4kcksIbFx7WKFMdxN8zUhLFHpLdELF0ym0jxa6UvLhW8/"
-            crossorigin="anonymous"></script>
+
+    <!-- Minimal polyfill for Math.log2() (IE11 support) -->
+    <script>
+        Math.log2 = Math.log2 || function(x) { return Math.log(x) / Math.LN2; };
+    </script>
+
     <script id="MathJax-script" async
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.0.0/tex-mml-chtml.min.js"
             integrity="sha384-C47sRPScRU8gCduybGUtOI2tuihkr9LFvlaIsWq+uu6bC6oxDSFgf97DSI+xWklw"
