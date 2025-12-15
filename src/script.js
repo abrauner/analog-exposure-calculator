@@ -91,6 +91,7 @@ function clearTimeFields() {
     inputs.time.textContent = '—';
     inputs.time.classList.remove('bg-gray-200', 'border-gray-700', 'text-gray-800', 'font-semibold');
     inputs.time.classList.add('bg-gray-100', 'border-gray-300', 'text-gray-600');
+    timeShutterSelect.value = '';
     hideError();
 }
 
@@ -98,6 +99,7 @@ function clearEVFields() {
     inputs.ev.textContent = '—';
     inputs.ev.classList.remove('bg-gray-200', 'border-gray-700', 'text-gray-800', 'font-semibold');
     inputs.ev.classList.add('bg-gray-100', 'border-gray-300', 'text-gray-600');
+    evSituationSelect.value = '';
     hideError();
 }
 
@@ -105,6 +107,7 @@ function clearISOFields() {
     inputs.iso.textContent = '—';
     inputs.iso.classList.remove('bg-gray-200', 'border-gray-700', 'text-gray-800', 'font-semibold');
     inputs.iso.classList.add('bg-gray-100', 'border-gray-300', 'text-gray-600');
+    isoFilmSelect.value = '';
     hideError();
 }
 
