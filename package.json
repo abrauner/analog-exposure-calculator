@@ -1,0 +1,22 @@
+{
+  "name": "exposure-calculator",
+  "version": "1.0.0",
+  "description": "Analog Film Exposure Calculator",
+  "scripts": {
+    "build:css": "postcss src/styles.css -o dist/styles.css",
+    "build:html": "html-minifier-terser --collapse-whitespace --remove-comments --minify-js --minify-css --input-dir src --output-dir dist --file-ext html",
+    "watch:css": "postcss src/styles.css -o dist/styles.css --watch",
+    "build": "npm run build:css && npm run build:html && cp src/script.js dist/ && cp src/schemas.js dist/ && cp src/robots.txt dist/ && cp src/sitemap.xml dist/ && cp src/manifest.json dist/"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "html-minifier-terser": "^7.2.0",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.1",
+    "tailwindcss": "^4.1.17"
+  }
+}
