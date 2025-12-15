@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
-        <loc><base-url></loc>
+        <loc>https://example.com/</loc>
         <lastmod>2025-12-13</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
 
         <!-- Image sitemap entries -->
         <image:image>
-            <image:loc><base-url>/images/og-image.jpg</image:loc>
+            <image:loc>https://example.com/images/og-image.jpg</image:loc>
             <image:caption>Analog Film Exposure Calculator interface</image:caption>
             <image:title>Exposure Calculator Screenshot</image:title>
         </image:image>
 
         <image:image>
-            <image:loc><base-url>/images/favicon-512x512.png</image:loc>
+            <image:loc>https://example.com/images/favicon-512x512.png</image:loc>
             <image:caption>Analog Film Exposure Calculator icon</image:caption>
         </image:image>
     </url>
