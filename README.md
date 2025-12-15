@@ -97,6 +97,12 @@ exposure_calc/
 - `npm run watch:css` - Watch CSS files for changes during development
 - `npm run build` - Complete production build (CSS + HTML + assets)
 
+### Test Scripts
+
+- `npm test` - Run all unit tests with Jest
+- `npm run test:watch` - Run tests in watch mode for development
+- `npm run test:coverage` - Run tests and generate coverage report
+
 ## Deployment
 
 The project is designed for easy deployment to static hosting platforms.
@@ -151,6 +157,48 @@ Progressive Web App capabilities include:
 - Add to home screen on mobile
 - App-like experience
 - Fast loading with service worker caching
+
+## Testing
+
+This project uses **Jest** as its testing framework with **JSDOM** for DOM manipulation testing.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode (useful during development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Structure
+
+Tests are located in the `tests/` directory and cover:
+- **Calculator Functions**: Core exposure calculation logic
+  - `findClosestShutterSpeed()` - Shutter speed matching with logarithmic comparison
+  - `findClosestLightSituation()` - EV value matching
+  - `findClosestFilmSpeed()` - ISO value matching
+- **Exposure Formulas**: Mathematical correctness of photography equations
+  - EV calculation: `EV = log₂(100 × A² / (ISO × T))`
+  - Aperture calculation: `A = √(ISO × T × 2^EV / 100)`
+  - ISO calculation: `ISO = 100 × A² / (T × 2^EV)`
+  - Time calculation: `T = 100 × A² / (ISO × 2^EV)`
+- **UI Functions**: Error display and field clearing
+- **Edge Cases**: Extreme values and validation
+
+### Test Coverage
+
+Current coverage metrics (as of latest run):
+- **Statements**: 36%
+- **Branches**: 14%
+- **Functions**: 60%
+- **Lines**: 35%
+
+Note: Lower coverage is expected due to DOM-dependent event handlers and UI code that's difficult to test in isolation. Core calculation functions have comprehensive test coverage.
 
 ## Browser Support
 
