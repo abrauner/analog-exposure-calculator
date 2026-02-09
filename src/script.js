@@ -341,6 +341,42 @@ function toggleDocumentation() {
     }
 }
 
+// Initialize documentation state based on screen size
+function initDocumentationState() {
+    const docContent = document.getElementById('documentationContent');
+    const docToggle = document.getElementById('docToggle');
+    
+    // Check if we're on a large screen (lg breakpoint is 1024px)
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+    
+    if (isLargeScreen) {
+        // On large screens, ensure content is visible and button state is correct
+        docContent.classList.remove('hidden');
+        if (docToggle) {
+            docToggle.setAttribute('aria-expanded', 'true');
+        }
+    } else {
+        // On smaller screens, respect the current collapsed state
+        // Only update aria-expanded to match the actual state
+        if (docToggle) {
+            const isHidden = docContent.classList.contains('hidden');
+            docToggle.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+        }
+    }
+}
+
+// Initialize on page load
+if (typeof window !== 'undefined') {
+    window.addEventListener('DOMContentLoaded', initDocumentationState);
+    
+    // Handle window resize to keep state consistent
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initDocumentationState, 250);
+    });
+}
+
 // Export functions for testing (Node.js/Jest environment only)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -355,6 +391,7 @@ if (typeof module !== 'undefined' && module.exports) {
         calculate,
         showError,
         hideError,
-        toggleDocumentation
+        toggleDocumentation,
+        initDocumentationState
     };
 }
