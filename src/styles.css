@@ -5,3 +5,17 @@ select option.full-stop {
     background-color: #d4edda;
     font-weight: 600;
 }
+
+/* Fix for MathJax formula rendering - prevent formulas from being cut off */
+.mjx-container {
+    overflow: visible !important;
+    margin: 0.5rem 0 !important;
+}
+
+/* Ensure formula containers have enough vertical space */
+.formula-container {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    line-height: 2 !important;
+    overflow: visible !important;
+}
