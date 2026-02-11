@@ -7,15 +7,17 @@ select option.full-stop {
 }
 
 /* Fix for MathJax formula rendering - prevent formulas from being cut off */
+/* MathJax adds inline styles, so !important is needed to override them */
 .mjx-container {
     overflow: visible !important;
     margin: 0.5rem 0 !important;
 }
 
-/* Ensure formula containers have enough vertical space */
+/* Ensure formula containers have enough vertical space for MathJax content */
+/* !important needed to override Tailwind's py-4 utility class already on these elements */
 .formula-container {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
-    line-height: 2 !important;
-    overflow: visible !important;
+    line-height: 2;
+    overflow: visible;
 }
